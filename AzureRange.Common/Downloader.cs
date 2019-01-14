@@ -17,7 +17,8 @@ namespace AzureRange
             string downloadPageAzureCloud = "https://www.microsoft.com/en-ca/download/confirmation.aspx?id=41653";
             string downloadPageAzureChinaCloud = "https://www.microsoft.com/en-ca/download/confirmation.aspx?id=42064";
             string downloadPageAzureGermanyCloud = "https://www.microsoft.com/en-us/download/confirmation.aspx?id=54770";
-            string downloadPageO365Cloud = "http://go.microsoft.com/fwlink/?LinkId=533185";
+            //string downloadPageO365Cloud = "http://go.microsoft.com/fwlink/?LinkId=533185"; 
+            string downloadPageO365Cloud = "https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7";
 
             List<IPPrefix> ipPrefixes = new List<IPPrefix>();
 
