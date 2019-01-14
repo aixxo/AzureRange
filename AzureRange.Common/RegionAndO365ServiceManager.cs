@@ -51,7 +51,7 @@ namespace AzureRange.Website
         /// </summary>
         private List<string> _o365Service = new List<string> {
             "EOP,Exchange Online Protection,Office 365",   //0
-            "EXO,Exchange Online,Office 365",      //1
+            "EXO,Exchange,Office 365",      //1
             "Identity,Identity Management,Office 365",  //2
             "LYO,Skype for Business Online,Office 365",    //3
             "o365,Office 365 Authentication Identity Portal and Shared Services,Office 365",  //4
@@ -65,6 +65,24 @@ namespace AzureRange.Website
             "WAC,Office Online,Office 365",    //12
             "Yammer,Yammer,Office 365" //13
         };
+        /*
+          private List<string> _o365Service = new List<string> {
+             "EOP,Exchange Online Protection,Office 365",   //0
+             "EXO,Exchange Online,Office 365",      //1
+             "Identity,Identity Management,Office 365",  //2
+             "LYO,Skype for Business Online,Office 365",    //3
+             "o365,Office 365 Authentication Identity Portal and Shared Services,Office 365",  //4
+             "OneNote,OneNote,Office 365",   //5
+             "Planner,Planner,Office 365",    //6
+             "ProPlus,Office ProPlus Download,Office 365",    //7
+             "RCA,Remote Connectivity Analyzer,Office 365",    //8
+             "SPO,SharePoint Online and OneDrive for Business,Office 365",   //9
+             "Sway,Sway,Office 365",   //10
+             "Teams,Microsoft Teams,Office 365",   //11
+             "WAC,Office Online,Office 365",    //12
+             "Yammer,Yammer,Office 365" //13
+         };
+         */
 
         /// <summary>
         /// 
