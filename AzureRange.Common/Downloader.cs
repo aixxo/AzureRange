@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using O365JSON;
 
 namespace AzureRange
 {
@@ -18,14 +19,15 @@ namespace AzureRange
             string downloadPageAzureChinaCloud = "https://www.microsoft.com/en-ca/download/confirmation.aspx?id=42064";
             string downloadPageAzureGermanyCloud = "https://www.microsoft.com/en-us/download/confirmation.aspx?id=54770";
             //string downloadPageO365Cloud = "http://go.microsoft.com/fwlink/?LinkId=533185"; 
-            string downloadPageO365Cloud = "https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7";
+            string downloadPageO365Cloud = "https://endpoints.office.com/endpoints/worldwide?noipv6&ClientRequestId=b10c5ed1-bad1-445f-b386-b919946339a7";
 
             List<IPPrefix> ipPrefixes = new List<IPPrefix>();
 
             ipPrefixes.AddRange(AddXMLMSInputFileAzure(downloadPageAzureCloud, IpPrefixType.Azure));
             ipPrefixes.AddRange(AddXMLMSInputFileAzure(downloadPageAzureGermanyCloud, IpPrefixType.AzureGermany));
             ipPrefixes.AddRange(AddXMLMSInputFileAzure(downloadPageAzureChinaCloud, IpPrefixType.AzureChina));
-            ipPrefixes.AddRange(AddXMLMSInputFileO365(downloadPageO365Cloud));
+            //ipPrefixes.AddRange(AddXMLMSInputFileO365(downloadPageO365Cloud));
+            ipPrefixes.AddRange(AddJSONMSInputFileO365(downloadPageO365Cloud));
 
             return ipPrefixes;
         }
@@ -95,6 +97,37 @@ namespace AzureRange
                     }
                 }
             }
+            return IPPrefixes;
+        }
+        private static List<IPPrefix> AddJSONMSInputFileO365(string downloadURL)
+        {
+            string dlUrl = string.Empty;
+            string dlContent = string.Empty;
+            List<IPPrefix> IPPrefixes = new List<IPPrefix>();
+
+            using (var wc = new WebClient())
+            {
+                dlContent = wc.DownloadString(downloadURL);
+            }
+
+            var o365ServiceClass = O365ServiceClass.FromJson(dlContent);
+
+
+            foreach (var service in o365ServiceClass)
+            {
+                if (service.Ips != null)
+                {
+                    foreach (var ipPrefixTmp in service.Ips)
+                    {
+                        var prefix =
+                        new IPPrefix(IpPrefixType.Office365, service.ServiceArea.ToString(), ipPrefixTmp.ToString());
+                        IPPrefixes.Add(prefix);
+
+                    }
+                }
+
+            }
+
             return IPPrefixes;
         }
     }
